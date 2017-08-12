@@ -18,12 +18,11 @@ int64_t gcd( int64_t a, int64_t b )
         min = & a;
     }
 
-    if( * min == 0 )
+    int64_t r = ( * max ) % ( * min );
+    if( r == 0 )
     {
-        return * max;
+        return * min;
     }
-
-    int64_t r = a % b;
 
     return gcd( * min, r );
 }
