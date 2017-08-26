@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int64_t fib_mod( int64_t n, int64_t m )
+int64_t pisano_sequence( int64_t mod )
 {
     int64_t i0 = 0;
     int64_t i1 = 1;
