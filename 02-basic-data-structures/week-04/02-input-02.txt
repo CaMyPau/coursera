@@ -1,0 +1,25 @@
+3
+13
+check 0
+find help
+add help
+add del
+add add
+find add
+find del
+del del
+check 2
+del del
+check 2
+find del
+check 0
+check 1
+check 2
+
+# Correct output:
+# no
+# yes
+# yes
+# no
+#
+# add help
