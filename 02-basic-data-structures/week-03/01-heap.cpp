@@ -38,7 +38,7 @@ public:
             size_t indexToSwap = i;
             size_t lc = leftChildPos( i );
             // If there's left child and it doesn't satisfy heap property
-            if( lc < v.size() && ! Comp{}( v[ i ], v[ lc ] ) )
+            if( lc < v.size() && Comp{}( v[ i ], v[ lc ] ) )
             {
                 indexToSwap = lc;
             }
@@ -47,8 +47,8 @@ public:
             // it is violates heap property "stronger" than left child
             size_t rc = rightChildPos( i );
             if( rc < v.size()
-                && ! Comp{}( v[ i ], v[ rc ] )
-                && Comp{}( v[ rc ], v[ lc ] ) )
+                && Comp{}( v[ i ], v[ rc ] )
+                && Comp{}( v[ lc ], v[ rc ] ) )
             {
                 indexToSwap = rc;
             }
@@ -104,8 +104,7 @@ int main()
           istream_iterator< int64_t >(),
           back_inserter( v ) );
 
-    // Heap< int64_t, std::greater< int64_t > > h( std::move( v ) );
-    Heap< int64_t, std::less< int64_t > > h( std::move( v ) );
+    Heap< int64_t, std::greater< int64_t > > h( std::move( v ) );
     h.heapify();
 
     cout << swaps.size() << endl;
