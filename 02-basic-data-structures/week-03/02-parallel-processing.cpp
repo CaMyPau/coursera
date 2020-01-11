@@ -1,3 +1,4 @@
+#include <queue>
 #include <functional>
 #include <iostream>
 #include <iterator>
@@ -118,6 +119,33 @@ private:
     std::vector< T > v;
 };
 
+template < typename T, typename Comp = std::less< T > >
+class StdHeap
+{
+public:
+
+    void insert( const T & v )
+    {
+        pq.emplace( v );
+    }
+
+    T pop()
+    {
+        T result = pq.top();
+        pq.pop();
+        return result;
+    }
+
+    const std::priority_queue< T > & get() const
+    {
+        return pq;
+    }
+
+private:
+
+    std::priority_queue< T, std::vector< T >, Comp > pq;
+};
+
 struct Job
 {
     Job()
@@ -149,13 +177,17 @@ ostream & operator << ( ostream & os, Job j )
     return os;
 }
 
-struct JobComp
+namespace std
 {
+template<>
+struct less< Job >
+{
+    using value_type = bool;
+    using first_argument_type = Job;
+    using second_argument_type = Job;
+
     bool operator()( const Job & lhs, const Job & rhs )
     {
-        // return ( lhs.finishTime > rhs.finishTime )
-        //     || ( ( lhs.finishTime == rhs.finishTime ) && ( lhs.threadId > rhs.threadId ) );
-
         if( lhs.finishTime > rhs.finishTime )
             return true;
 
@@ -168,10 +200,11 @@ struct JobComp
         return false;
     }
 };
+}
 
 int main( int argc, char ** argv )
 {
-    Heap< Job, JobComp > h;
+    StdHeap< Job > h;
 
     uint64_t numThreads;
     uint64_t numJobs;
