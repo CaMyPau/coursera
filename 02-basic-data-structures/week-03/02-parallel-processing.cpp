@@ -1,4 +1,3 @@
-#include <queue>
 #include <functional>
 #include <iostream>
 #include <iterator>
@@ -103,7 +102,7 @@ private:
 
     static uint64_t parentPos( uint64_t s )
     {
-        return s / 2;
+        return ( s - 1 ) / 2;
     }
 
     static uint64_t leftChildPos( uint64_t s )
@@ -117,33 +116,6 @@ private:
     }
 
     std::vector< T > v;
-};
-
-template < typename T, typename Comp = std::less< T > >
-class StdHeap
-{
-public:
-
-    void insert( const T & v )
-    {
-        pq.emplace( v );
-    }
-
-    T pop()
-    {
-        T result = pq.top();
-        pq.pop();
-        return result;
-    }
-
-    const std::priority_queue< T > & get() const
-    {
-        return pq;
-    }
-
-private:
-
-    std::priority_queue< T, std::vector< T >, Comp > pq;
 };
 
 struct Job
@@ -204,7 +176,7 @@ struct less< Job >
 
 int main( int argc, char ** argv )
 {
-    StdHeap< Job > h;
+    Heap< Job > h;
 
     uint64_t numThreads;
     uint64_t numJobs;
