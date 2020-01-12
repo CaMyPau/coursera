@@ -26,7 +26,7 @@ public:
         return dfs( a, [ b ]( VertexId v ){ return v == b; } );
     }
 
-    bool dfs( VertexId start, function< bool( VertexId ) > visitor )
+    bool dfs( VertexId start, function< bool( VertexId ) > visitor ) const
     {
         vector< bool > visited( v.size(), false );
 
